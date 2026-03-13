@@ -31,9 +31,13 @@ function App() {
 
   return (
     <div className="max-w-6xl mx-auto px-6 py-8">
-      <h1 className="font-mono font-semibold text-accent text-xl tracking-wide mb-1">Silicon AI</h1>
-      <p className="text-muted text-[0.95rem] mb-6">Text-to-image. No sign-up required.</p>
-
+      <header className="flex items-center gap-3 mb-6">
+        <img src="/logo.svg" alt="" className="w-9 h-9 shrink-0" aria-hidden />
+        <div>
+          <h1 className="font-mono font-semibold text-accent text-xl tracking-wide">Silicon AI</h1>
+          <p className="text-muted text-[0.95rem] mt-0.5">Text-to-image. No sign-up required.</p>
+        </div>
+      </header>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
         <div>
           <GenerateForm

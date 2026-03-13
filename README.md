@@ -18,6 +18,8 @@ Silicon AI is a production-ready web application that turns natural language int
 | **Secure by design** | Server-side credential handling; nothing exposed to the client. |
 | **Deploy anywhere** | Node.js + static assets. Runs on Vercel, Railway, Render, or any Node host. |
 
+**Logo:** The mark combines a hexagonal crystal lattice (silicon—the element at the heart of modern compute) with a single path through it (the neural link / circuit), representing where silicon and intelligence meet.
+
 ---
 
 ## Quick Start
