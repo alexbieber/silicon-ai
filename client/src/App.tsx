@@ -32,7 +32,7 @@ function App() {
   return (
     <div className="max-w-6xl mx-auto px-6 py-8">
       <h1 className="font-mono font-semibold text-accent text-xl tracking-wide mb-1">Silicon AI</h1>
-      <p className="text-muted text-[0.95rem] mb-6">Text-to-image. Your key stays on the server.</p>
+      <p className="text-muted text-[0.95rem] mb-6">Text-to-image. No sign-up required.</p>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
         <div>

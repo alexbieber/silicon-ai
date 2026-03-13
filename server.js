@@ -38,7 +38,7 @@ app.get("/api/models", (_, res) => {
 app.post("/api/generate", async (req, res) => {
   const apiKey = process.env.NVAPI_KEY;
   if (!apiKey) {
-    return res.status(500).json({ error: "Server missing NVAPI_KEY. Add it to .env" });
+    return res.status(503).json({ error: "Service temporarily unavailable. Please try again later." });
   }
 
   const {
@@ -114,9 +114,9 @@ app.post("/api/generate", async (req, res) => {
       seed: artifact.seed,
     });
   } catch (err) {
-    console.error("NVIDIA API error:", err);
+    console.error("Generation error:", err);
     res.status(502).json({
-      error: err.message || "Request to NVIDIA failed",
+      error: "Generation failed. Please try again later.",
     });
   }
 });
@@ -129,5 +129,5 @@ app.get("*", (_, res) => {
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
-  if (!process.env.NVAPI_KEY) console.warn("Warning: NVAPI_KEY not set. Add it to .env to generate images.");
+  if (!process.env.NVAPI_KEY) console.warn("Warning: Server credential not set. Add it to .env to enable generation.");
 });

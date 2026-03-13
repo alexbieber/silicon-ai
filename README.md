@@ -1,6 +1,6 @@
 # Silicon AI
 
-A local website for **text-to-image** generation. Your API key is stored only on the server and never sent to the browser.
+Text-to-image generation. Visitors use the tool with no sign-up; the server handles generation securely.
 
 ## Tech stack
 
@@ -10,7 +10,7 @@ A local website for **text-to-image** generation. Your API key is stored only on
 ## Features
 
 - **Text-to-image**: Describe an image; get a generated image.
-- **Multiple models**: Stable Diffusion XL, SD 3 Medium, SDXL Turbo, BRIA 2.3 (when available on your key).
+- **Multiple models**: Stable Diffusion XL, SD 3 Medium, SDXL Turbo, BRIA 2.3 (when available).
 - **Controls**: Prompt, negative prompt, steps, CFG scale, seed.
 - **Download**: Save the result as JPEG with a prompt-based filename.
 
@@ -22,13 +22,9 @@ A local website for **text-to-image** generation. Your API key is stored only on
    npm install
    ```
 
-2. **API key**
+2. **Configure server**
 
-   Add your key to `.env`:
-
-   ```
-   NVAPI_KEY=your-nvapi-key-here
-   ```
+   Copy `.env.example` to `.env` and set the required value. Do not commit `.env`.
 
 3. **Build the frontend** (first time or after pulling)
 
@@ -49,16 +45,16 @@ A local website for **text-to-image** generation. Your API key is stored only on
 ## Development
 
 - **Backend only** (use existing built frontend): `npm run dev`
-- **Frontend with hot reload**: run the API server on port 3000 (`npm start`), then in another terminal run `npm run dev:client` and open [http://localhost:5173](http://localhost:5173). The Vite dev server proxies `/api` to the backend.
+- **Frontend with hot reload**: run the server on port 3000 (`npm start`), then in another terminal run `npm run dev:client` and open [http://localhost:5173](http://localhost:5173). The Vite dev server proxies `/api` to the backend.
 
 ## Security
 
 - **Do not commit `.env`** — it is in `.gitignore`.
-- The frontend never sees your API key; all requests go through your server.
+- The credential is only used on the server; the frontend never receives it.
 
 ## Scripts
 
 - `npm start` — run server (serves built client from `client/dist` or `public/`)
 - `npm run dev` — run server with auto-restart
 - `npm run build` — install client deps and build React app to `client/dist`
-- `npm run dev:client` — run Vite dev server (proxy to API on port 3000)
+- `npm run dev:client` — run Vite dev server (proxy to backend on port 3000)
