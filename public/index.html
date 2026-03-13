@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Silicon AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0c0d0f;
+      --surface: #16181c;
+      --border: #2a2d33;
+      --text: #e6e8ec;
+      --muted: #8b909a;
+      --accent: #76b900;
+      --accent-dim: #5a8c00;
+      --danger: #e5484d;
+      --radius: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Outfit", system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .layout {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+      display: grid;
+      gap: 2rem;
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    h1 {
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 600;
+      font-size: 1.25rem;
+      letter-spacing: 0.02em;
+      color: var(--accent);
+      margin: 0 0 0.5rem 0;
+    }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 100px;
+      padding: 0.75rem 1rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: "Outfit", sans-serif;
+      font-size: 1rem;
+      resize: vertical;
+      transition: border-color 0.2s;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    textarea::placeholder {
+      color: var(--muted);
+    }
+
+    select {
+      width: 100%;
+      padding: 0.65rem 1rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 1rem;
+    }
+
+    .field {
+      margin-bottom: 1rem;
+    }
+
+    .field:last-child {
+      margin-bottom: 0;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 0.5rem 0.75rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.9rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.85rem 1.5rem;
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      border-radius: 8px;
+      font-family: "Outfit", sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      margin-top: 1rem;
+    }
+
+    .btn:hover:not(:disabled) {
+      background: var(--accent-dim);
+    }
+
+    .btn:active:not(:disabled) {
+      transform: scale(0.98);
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .result {
+      position: sticky;
+      top: 2rem;
+    }
+
+    .result-image-wrap {
+      aspect-ratio: 1;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 320px;
+    }
+
+    .result-image-wrap img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .result-image-wrap.placeholder {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .result-meta {
+      margin-top: 0.75rem;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .result-actions {
+      margin-top: 0.75rem;
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .btn.secondary {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+      margin-top: 0;
+    }
+
+    .btn.secondary:hover:not(:disabled) {
+      background: var(--border);
+    }
+
+    .error-msg {
+      background: rgba(229, 72, 77, 0.12);
+      border: 1px solid var(--danger);
+      color: #ff6b6b;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      margin-top: 1rem;
+    }
+
+    .spinner {
+      width: 32px;
+      height: 32px;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <div class="left">
+      <h1>Silicon AI</h1>
+      <p style="color: var(--muted); margin: 0 0 1.5rem 0; font-size: 0.95rem;">
+        Text-to-image. Your key stays on the server.
+      </p>
+
+      <div class="panel">
+        <div class="field">
+          <label for="prompt">Prompt</label>
+          <textarea id="prompt" placeholder="A photo of an astronaut riding a horse on Mars..." required></textarea>
+        </div>
+        <div class="field">
+          <label for="negative">Negative prompt (optional)</label>
+          <textarea id="negative" placeholder="blurry, low quality..." rows="2"></textarea>
+        </div>
+        <div class="field">
+          <label for="model">Model</label>
+          <select id="model"></select>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="steps">Steps</label>
+            <input type="number" id="steps" min="5" max="100" value="25" />
+          </div>
+          <div class="field">
+            <label for="cfg">CFG scale</label>
+            <input type="number" id="cfg" min="1" max="9" step="0.5" value="7" />
+          </div>
+          <div class="field">
+            <label for="seed">Seed (0 = random)</label>
+            <input type="number" id="seed" min="0" value="0" />
+          </div>
+        </div>
+        <button type="button" class="btn" id="generate">Generate image</button>
+        <div id="error" class="error-msg" style="display: none;"></div>
+      </div>
+    </div>
+
+    <div class="result">
+      <div class="panel">
+        <label>Output</label>
+        <div class="result-image-wrap placeholder" id="preview">
+          Generated image will appear here
+        </div>
+        <div class="result-meta" id="meta" style="display: none;"></div>
+        <div class="result-actions" id="actions" style="display: none;">
+          <a class="btn secondary" id="download" download="image.jpg">Download image</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const promptEl = document.getElementById("prompt");
+    const negativeEl = document.getElementById("negative");
+    const modelEl = document.getElementById("model");
+    const stepsEl = document.getElementById("steps");
+    const cfgEl = document.getElementById("cfg");
+    const seedEl = document.getElementById("seed");
+    const generateBtn = document.getElementById("generate");
+    const previewEl = document.getElementById("preview");
+    const metaEl = document.getElementById("meta");
+    const actionsEl = document.getElementById("actions");
+    const errorEl = document.getElementById("error");
+    const downloadEl = document.getElementById("download");
+
+    async function loadModels() {
+      try {
+        const res = await fetch("/api/models");
+        const { models } = await res.json();
+        modelEl.innerHTML = models.map((m) => `<option value="${m.id}">${m.name}</option>`).join("");
+      } catch (e) {
+        modelEl.innerHTML = '<option value="stable-diffusion-xl">Stable Diffusion XL</option>';
+      }
+    }
+
+    function showError(msg) {
+      errorEl.textContent = msg;
+      errorEl.style.display = "block";
+    }
+
+    function clearError() {
+      errorEl.style.display = "none";
+      errorEl.textContent = "";
+    }
+
+    generateBtn.addEventListener("click", async () => {
+      const prompt = promptEl.value.trim();
+      if (!prompt) {
+        showError("Enter a prompt.");
+        return;
+      }
+
+      clearError();
+      generateBtn.disabled = true;
+      previewEl.classList.remove("placeholder");
+      previewEl.innerHTML = '<div class="spinner"></div>';
+      metaEl.style.display = "none";
+      actionsEl.style.display = "none";
+
+      try {
+        const res = await fetch("/api/generate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            prompt,
+            negativePrompt: negativeEl.value.trim(),
+            model: modelEl.value,
+            steps: parseInt(stepsEl.value, 10) || 25,
+            cfg_scale: parseFloat(cfgEl.value) || 7,
+            seed: parseInt(seedEl.value, 10) || 0,
+          }),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          showError(data.error || "Generation failed");
+          previewEl.classList.add("placeholder");
+          previewEl.textContent = "Generated image will appear here";
+          return;
+        }
+
+        const img = document.createElement("img");
+        img.src = "data:image/jpeg;base64," + data.image;
+        img.alt = "Generated image";
+        previewEl.innerHTML = "";
+        previewEl.appendChild(img);
+        previewEl.classList.remove("placeholder");
+
+        if (data.seed != null) {
+          metaEl.textContent = `Seed: ${data.seed}${data.finishReason ? " · " + data.finishReason : ""}`;
+          metaEl.style.display = "block";
+        }
+
+        const binary = Uint8Array.from(atob(data.image), (c) => c.charCodeAt(0));
+        const blob = new Blob([binary], { type: "image/jpeg" });
+        const url = URL.createObjectURL(blob);
+        const slug = prompt.slice(0, 40).replace(/[^\w\s-]/g, "").replace(/\s+/g, "-").toLowerCase() || "image";
+        downloadEl.href = url;
+        downloadEl.download = `${slug}-${Date.now()}.jpg`;
+        downloadEl.onclick = () => { setTimeout(() => URL.revokeObjectURL(url), 100); };
+        actionsEl.style.display = "flex";
+      } catch (e) {
+        showError(e.message || "Network error");
+        previewEl.classList.add("placeholder");
+        previewEl.textContent = "Generated image will appear here";
+      } finally {
+        generateBtn.disabled = false;
+      }
+    });
+
+    loadModels();
+  </script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "silicon-ai",
+  "version": "1.0.0",
+  "description": "Image generation website using NVIDIA NIM API",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "build": "cd client && npm install && npm run build",
+    "dev:client": "cd client && npm run dev"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0"
+  }
+}

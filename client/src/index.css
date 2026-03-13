@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-[#0c0d0f] text-[#e6e8ec] font-sans antialiased min-h-screen;
+}
