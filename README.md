@@ -1,5 +1,9 @@
 # Silicon AI
 
+<p align="center">
+  <img src="client/src/assets/logo.svg" alt="Silicon AI" width="64" height="64" />
+</p>
+
 **Enterprise-grade text-to-image generation.** Ship a polished, secure image generation experience with no user sign-up—your infrastructure, your control.
 
 [![CI](https://github.com/alexbieber/silicon-ai/actions/workflows/ci.yml/badge.svg)](https://github.com/alexbieber/silicon-ai/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
@@ -18,7 +22,7 @@ Silicon AI is a production-ready web application that turns natural language int
 | **Secure by design** | Server-side credential handling; nothing exposed to the client. |
 | **Deploy anywhere** | Node.js + static assets. Runs on Vercel, Railway, Render, or any Node host. |
 
-**Logo:** The mark combines a hexagonal crystal lattice (silicon—the element at the heart of modern compute) with a single path through it (the neural link / circuit), representing where silicon and intelligence meet.
+**Logo:** The mark combines a hexagonal crystal lattice (silicon—the element at the heart of modern compute) with a single path through it (the neural link / circuit), representing where silicon and intelligence meet. It appears in the app header and as the favicon. Source assets: `client/src/assets/logo.svg` and `logo.png` (React app); `client/public/` and `public/` for static favicon and legacy UI.
 
 ---
 
@@ -48,12 +52,14 @@ Open **http://localhost:3000**. You’re live.
 silicon-ai/
 ├── client/                 # React + TypeScript + Vite + Tailwind
 │   ├── src/
+│   │   ├── assets/         # Logo (logo.svg, logo.png) — used in header & favicon
 │   │   ├── App.tsx
 │   │   ├── api.ts          # Data layer
 │   │   ├── GenerateForm.tsx
 │   │   └── ResultPanel.tsx
+│   ├── public/             # Static assets (logo, favicon) copied to dist
 │   └── dist/               # Production build (generated)
-├── public/                 # Fallback static UI
+├── public/                 # Fallback static UI + logo
 ├── server.js               # Express API and static serving
 ├── .env.example            # Config template (do not commit .env)
 └── package.json
