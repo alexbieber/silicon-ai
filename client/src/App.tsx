@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 import { useModels, useGenerate } from "./api";
 import { GenerateForm } from "./GenerateForm";
 import { ResultPanel } from "./ResultPanel";
-import logoSvg from "./assets/logo.svg";
+import logoPng from "./assets/logo.png";
 
 function App() {
   const { models, loading: modelsLoading } = useModels();
@@ -33,7 +33,7 @@ function App() {
   return (
     <div className="max-w-6xl mx-auto px-6 py-8">
       <header className="flex items-center gap-3 mb-6">
-        <img src={logoSvg} alt="Silicon AI" className="w-9 h-9 shrink-0" />
+        <img src={logoPng} alt="Silicon AI" className="w-9 h-9 shrink-0" />
         <div>
           <h1 className="font-mono font-semibold text-accent text-xl tracking-wide">Silicon AI</h1>
           <p className="text-muted text-[0.95rem] mt-0.5">Text-to-image. No sign-up required.</p>
