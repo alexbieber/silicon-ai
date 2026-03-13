@@ -1,8 +1,24 @@
 {
   "name": "silicon-ai",
   "version": "1.0.0",
-  "description": "Image generation website using NVIDIA NIM API",
+  "description": "Production-ready text-to-image generation. Zero sign-up, server-secure, deploy anywhere.",
   "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alexbieber/silicon-ai.git"
+  },
+  "keywords": [
+    "image-generation",
+    "text-to-image",
+    "stable-diffusion",
+    "ai",
+    "react",
+    "express"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "start": "node server.js",
     "dev": "node --watch server.js",

@@ -1,60 +1,106 @@
 # Silicon AI
 
-Text-to-image generation. Visitors use the tool with no sign-up; the server handles generation securely.
+**Enterprise-grade text-to-image generation.** Ship a polished, secure image generation experience with no user sign-up—your infrastructure, your control.
 
-## Tech stack
+[![CI](https://github.com/alexbieber/silicon-ai/actions/workflows/ci.yml/badge.svg)](https://github.com/alexbieber/silicon-ai/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-- **Frontend**: React 18, TypeScript, Vite, Tailwind CSS
-- **Backend**: Node.js, Express
+---
 
-## Features
+## Overview
 
-- **Text-to-image**: Describe an image; get a generated image.
-- **Multiple models**: Stable Diffusion XL, SD 3 Medium, SDXL Turbo, BRIA 2.3 (when available).
-- **Controls**: Prompt, negative prompt, steps, CFG scale, seed.
-- **Download**: Save the result as JPEG with a prompt-based filename.
+Silicon AI is a production-ready web application that turns natural language into images. Deploy it as a public tool, an internal service, or a white-label product. Credentials stay on the server; users get a fast, minimal interface with no accounts required.
 
-## Setup
+| Feature | Description |
+|--------|-------------|
+| **Zero-friction UX** | No sign-up, no login. Prompt → image → download. |
+| **Multiple models** | Stable Diffusion XL, SD 3 Medium, SDXL Turbo, BRIA 2.3. |
+| **Full control** | Prompt, negative prompt, steps, CFG scale, seed. |
+| **Secure by design** | Server-side credential handling; nothing exposed to the client. |
+| **Deploy anywhere** | Node.js + static assets. Runs on Vercel, Railway, Render, or any Node host. |
 
-1. **Install backend dependencies**
+---
 
-   ```bash
-   npm install
-   ```
+## Quick Start
 
-2. **Configure server**
+```bash
+# Clone and install
+git clone https://github.com/alexbieber/silicon-ai.git
+cd silicon-ai
+npm install
 
-   Copy `.env.example` to `.env` and set the required value. Do not commit `.env`.
+# Configure (copy .env.example to .env and set the required value)
+cp .env.example .env
 
-3. **Build the frontend** (first time or after pulling)
+# Build frontend and run
+npm run build
+npm start
+```
 
-   ```bash
-   npm run build
-   ```
+Open **http://localhost:3000**. You’re live.
 
-   This installs client deps and builds the React app into `client/dist`.
+---
 
-4. **Run the server**
+## Project Structure
 
-   ```bash
-   npm start
-   ```
+```
+silicon-ai/
+├── client/                 # React + TypeScript + Vite + Tailwind
+│   ├── src/
+│   │   ├── App.tsx
+│   │   ├── api.ts          # Data layer
+│   │   ├── GenerateForm.tsx
+│   │   └── ResultPanel.tsx
+│   └── dist/               # Production build (generated)
+├── public/                 # Fallback static UI
+├── server.js               # Express API and static serving
+├── .env.example            # Config template (do not commit .env)
+└── package.json
+```
 
-   Open [http://localhost:3000](http://localhost:3000). The server serves the built React app from `client/dist`; if that folder is missing, it falls back to the legacy static `public/` page.
+---
+
+## Deployment
+
+### Environment
+
+Create a `.env` file (or set environment variables in your host’s dashboard):
+
+- **Required:** The value referenced in `.env.example`. Do not commit `.env` or expose it to the client.
+
+### Recommended hosts
+
+| Platform | Notes |
+|----------|--------|
+| **Vercel** | Add server as serverless API routes or use Node server preset; set env vars in Project Settings. |
+| **Railway** | One-click Node deploy; set env vars in Variables. |
+| **Render** | Web Service, Node; set env in Environment. |
+
+Build command: `npm run build`  
+Start command: `npm start`
+
+---
 
 ## Development
 
-- **Backend only** (use existing built frontend): `npm run dev`
-- **Frontend with hot reload**: run the server on port 3000 (`npm start`), then in another terminal run `npm run dev:client` and open [http://localhost:5173](http://localhost:5173). The Vite dev server proxies `/api` to the backend.
+| Command | Purpose |
+|---------|--------|
+| `npm start` | Run production server (serves `client/dist` or `public/`) |
+| `npm run dev` | Run server with auto-restart |
+| `npm run build` | Install client deps and build React app → `client/dist` |
+| `npm run dev:client` | Vite dev server with HMR at :5173 (proxies `/api` to backend) |
 
-## Security
+For frontend hot-reload: run `npm start` in one terminal, `npm run dev:client` in another, then open http://localhost:5173.
 
-- **Do not commit `.env`** — it is in `.gitignore`.
-- The credential is only used on the server; the frontend never receives it.
+---
 
-## Scripts
+## Tech Stack
 
-- `npm start` — run server (serves built client from `client/dist` or `public/`)
-- `npm run dev` — run server with auto-restart
-- `npm run build` — install client deps and build React app to `client/dist`
-- `npm run dev:client` — run Vite dev server (proxy to backend on port 3000)
+- **Frontend:** React 18, TypeScript, Vite, Tailwind CSS  
+- **Backend:** Node.js, Express  
+- **Delivery:** Static assets + REST API; credential never sent to the browser  
+
+---
+
+## License
+
+MIT. See [LICENSE](LICENSE) for details.
