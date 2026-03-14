@@ -27,11 +27,11 @@
 ## Screenshot
 
 <p align="center">
-  <img src="docs/screenshot.png" alt="Silicon AI app" width="800" />
+  <img src="docs/Screenshot.png" alt="Silicon AI app" width="800" />
 </p>
 
 <p align="center">
-  <em>Add <code>docs/screenshot.png</code> (e.g. 800×450) to show the app UI here.</em>
+  <em>Screenshot of the Silicon AI app.</em>
 </p>
 
 ---
